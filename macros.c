@@ -386,6 +386,8 @@ FLASHMEM void fs_macros_init (void)
 
 #if NGC_EXPRESSIONS_ENABLE
 
+    #if (ATC_ENABLE != 2)
+
     PROGMEM static const setting_detail_t macro_settings[] = {
         { Setting_MacroATC_Options, Group_Toolchange, "Macro ATC options", NULL, Format_Bitfield, "Execute M6T0,Fail M6 if tc.macro not found", NULL, NULL, Setting_IsExtended, &settings.macro_atc_flags.value, NULL },
     };
@@ -404,15 +406,18 @@ FLASHMEM void fs_macros_init (void)
         .save = settings_write_global
     };
 
+    
     on_vfs_mount = vfs.on_mount;
     vfs.on_mount = atc_macros_attach;
 
     on_vfs_unmount = vfs.on_unmount;
     vfs.on_unmount = atc_macros_detach;
 
+    
     settings_register(&macro_setting_details);
 
     task_run_on_startup(atc_check, NULL);
+    #endif
 
 #endif
 }
