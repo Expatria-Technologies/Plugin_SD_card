@@ -386,7 +386,7 @@ FLASHMEM void fs_macros_init (void)
 
 #if NGC_EXPRESSIONS_ENABLE
 
-    #if (ATC_ENABLE != 2)
+    #if (ATC_ENABLE)
 
     PROGMEM static const setting_detail_t macro_settings[] = {
         { Setting_MacroATC_Options, Group_Toolchange, "Macro ATC options", NULL, Format_Bitfield, "Execute M6T0,Fail M6 if tc.macro not found", NULL, NULL, Setting_IsExtended, &settings.macro_atc_flags.value, NULL },
